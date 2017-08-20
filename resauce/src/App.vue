@@ -1,13 +1,21 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <MainPage :resources="this.resources"></MainPage>
   </div>
 </template>
 
 <script>
+import MainPage from '@/components/MainPage.vue'
+import db from '@/db_config.js'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    MainPage
+  },
+  firebase: {
+    resources: db.db.ref('resources')
+  }
 }
 </script>
 
