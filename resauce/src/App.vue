@@ -14,7 +14,7 @@ export default {
     MainPage
   },
   firebase: {
-    resources: db.db.ref('resources')
+    resources: db.ref('resources')
   }
 }
 </script>
