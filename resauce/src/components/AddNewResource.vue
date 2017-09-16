@@ -26,12 +26,13 @@
 </template>
 
 <script>
-import db from '@/db_config.js'
+import db from '../db_config.js'
+let resourcesRef = db.ref('resources')
 
 export default {
   name: 'addnewresource',
   firebase: {
-    resources: db.db.ref('resources')
+    resources: db.ref('resources')
   },
   data () {
     return {
@@ -45,11 +46,13 @@ export default {
   },
   methods: {
     addResource: function () {
-      this.resources.push(this.newResource)
+      var newResource = this.newResource
+      newResource['Votes'] = 0
+      resourcesRef.push(this.newResource)
+      this.newResource.User = ''
       this.newResource.Name = ''
       this.newResource.Link = 'http://'
       this.newResource.Description = ''
-      this.newResource.User = ''
     }
   }
 }
