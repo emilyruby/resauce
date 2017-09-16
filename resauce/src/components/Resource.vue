@@ -1,10 +1,10 @@
 <template>
   <div class="resource">
     <div class="name">
-      {{name}}
+      {{name.Name}}
     </div>
     <div class="description">
-      {{description}}
+      {{name.Description}}
     </div>
     <div class="votes">
       <button
@@ -12,8 +12,12 @@
         v-on:click="upVote()">
         👍
       </button>
-      <h4 class="votes_number">{{votes}}</h4>
-      <button type="button">👎</button>
+      <h4 class="votes_number">{{name.Votes}}</h4>
+      <button
+        type="button"
+        v-on:click="downVote()">
+        👎
+      </button>
     </div>
     <div class="link">
       <v-btn primary dark>Try it Out</v-btn>
@@ -22,25 +26,25 @@
 </template>
 
 <script>
-import db from '@/db_config.js'
+import db from '../db_config.js'
+let resourcesRef = db.ref('resources')
 
 export default {
   name: 'resource',
   props: {
-    name: '',
-    link: '',
-    description: '',
-    votes: 0,
-    id: ''
+    name: {}
   },
   firebase: {
-    resources: db.ref('resources')
+    resources: resourcesRef
   },
   methods: {
     upVote () {
-      print('called')
-      let thisResource = this.resources.child(this.id)
-      this.resources.child(thisResource).child('votes').set(this.votes + 1)
+      var item = {...this.name}
+      resourcesRef.child(item['.key']).child('Votes').set(this.name.Votes + 1)
+    },
+    downVote () {
+      var item = {...this.name}
+      resourcesRef.child(item['.key']).child('Votes').set(this.name.Votes - 1)
     }
   }
 }
