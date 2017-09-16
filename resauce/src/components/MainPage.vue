@@ -3,12 +3,8 @@
     <h1 id="title">RESAUCE</h1>
     <div id="resources">
       <Resource
-        v-for="resource in resources"
-        :name="resource.Name"
-        :link="resource.Link"
-        :description="resource.Description"
-        :votes="resource.Votes"
-        :id="resource.ID"
+        v-for="resource in orderedResources"
+        :name="resource"
         :key="resource.ID">
       </Resource>
     </div>
@@ -19,6 +15,7 @@
 <script>
 import Resource from '@/components/Resource.vue'
 import AddNewResource from '@/components/AddNewResource.vue'
+import _ from 'lodash'
 
 export default {
   name: 'mainpage',
@@ -28,6 +25,11 @@ export default {
   },
   props: {
     resources: {}
+  },
+  computed: {
+    orderedResources: function () {
+      return _.orderBy(this.resources, 'Votes', 'desc')
+    }
   }
 }
 </script>
