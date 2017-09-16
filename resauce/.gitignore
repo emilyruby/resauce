@@ -14,3 +14,5 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
+
+src/db_config.js
