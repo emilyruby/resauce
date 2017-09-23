@@ -1,15 +1,20 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import MainPage from '@/components/MainPage.vue'
 
-Vue.use(Router)
-
-export default new Router({
+const router = new VueRouter({
+  mode: 'history',
   routes: [
     {
       path: '/',
-      name: 'MainPage',
       component: MainPage
+    },
+    {
+      path: '/auth/callback',
+      component: {
+        template: '<div class="auth-component"></div>'
+      }
     }
   ]
 })
+
+export default router
